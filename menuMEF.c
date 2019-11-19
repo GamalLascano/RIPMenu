@@ -126,6 +126,7 @@ int main (void){
 			break;
 			case MENU:
 				if(menuRefreshInt==1){
+					lcdClear();
 					showMenu(menuInt);
 					menuRefreshInt=0;
 				}
@@ -173,5 +174,7 @@ void changeStateMenu(int mInt){
 		case 2:
 			estado = AUTO;
 		break;
+		default:
+			estado = OSD;
 	}
 }
