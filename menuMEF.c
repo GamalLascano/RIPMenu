@@ -17,7 +17,9 @@ int main (void){
 	estado=OSD;
 	lcdInit( 16, 2, 5, 8 );
 	lcdCreateChar( 0, humChar );
+	adcConfig( ADC_ENABLE );
 	while(TRUE){
+		SoilSensor = adcRead( CH1 );
 		switch(estado){
 			case OSD:
 			break;
