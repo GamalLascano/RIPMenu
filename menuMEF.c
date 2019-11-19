@@ -25,6 +25,8 @@ uint16_t SoilSensor;
 float moist;
 char * medida;
 uint32_t osdint = 0;
+uint32_t menuInt = 0;
+uint32_t menuRefreshInt = 1;
 int main (void){
 	boardConfig();
 	estado=OSD;
@@ -123,7 +125,33 @@ int main (void){
 				delay(40);
 			break;
 			case MENU:
-
+				if(menuRefreshInt==1){
+					showMenu(menuInt);
+					menuRefreshInt=0;
+				}
+				if (delayRead(&refreshButtonEvents)){
+					if (buttonEventGet( &boton0 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton0 );
+						estado = OSD;
+						menuRefreshInt=1;
+					}
+					if (buttonEventGet( &boton1 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton1 );
+						menuInt = menuInt - 1;
+						if (menuInt == -1) menuInt = 2;
+						menuRefreshInt=1;
+					}
+					if (buttonEventGet( &boton2 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton2 );
+						menuInt = (menuInt + 1) % 3;
+						menuRefreshInt=1;
+					}
+					if (buttonEventGet( &boton3 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton3 );
+						//changeStateMenu(menuInt);
+						menuRefreshInt=1;
+					}
+				}
 			break;
 			case DIRECT:
 			break;
@@ -132,5 +160,18 @@ int main (void){
 			case AUTO:
 			break;
 		}
+	}
+}
+void changeStateMenu(int mInt){
+	switch(mInt){
+		case 0:
+			estado = DIRECT;
+		break;
+		case 1:
+			estado = TIMER;
+		break;
+		case 2:
+			estado = AUTO;
+		break;
 	}
 }
