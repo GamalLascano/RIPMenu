@@ -149,12 +149,27 @@ int main (void){
 					}
 					if (buttonEventGet( &boton3 ) == BUTTON_PRESSED){
 						buttonEventHandled( &boton3 );
-						//changeStateMenu(menuInt);
+						changeStateMenu(menuInt);
 						menuRefreshInt=1;
 					}
 				}
 			break;
 			case DIRECT:
+				if(menuRefreshInt==1){
+					lcdClear();
+					lcdGoToXY( 0, 0 );
+					lcdSendStringRaw( "Entraste aca" );
+					lcdGoToXY( 0, 1 );
+					lcdSendStringRaw( "de vuelta" );
+					menuRefreshInt=0;
+				}
+				if (delayRead(&refreshButtonEvents)){
+					if (buttonEventGet( &boton0 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton0 );
+						estado = OSD;
+						menuRefreshInt=1;
+					}
+				}
 			break;
 			case TIMER:
 			break;
@@ -169,10 +184,12 @@ void changeStateMenu(int mInt){
 			estado = DIRECT;
 		break;
 		case 1:
-			estado = TIMER;
+			//estado = TIMER;
+			estado = OSD;
 		break;
 		case 2:
-			estado = AUTO;
+			//estado = AUTO;
+			estado = OSD;
 		break;
 		default:
 			estado = OSD;
