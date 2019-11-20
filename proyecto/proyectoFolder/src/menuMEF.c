@@ -124,9 +124,7 @@ int main (void){
 		SoilSensor = adcRead( ADC_CH0 );
 		moist = SoilSensor / 10.23;
 		moist = 100 - moist;
-		//uint64ToString((uint64_t)SoilSensor,medida,10);
 		floatToString(moist,medida,2);
-		//myftoa(moist,medida,0);
 		if( delayRead(&refreshButton) ) {
          buttonFsmUpdate( &boton0 );
          buttonFsmUpdate( &boton1 );
