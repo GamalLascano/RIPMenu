@@ -1,5 +1,16 @@
 #include "sapi.h" 
 #include "ClockOSD.h" 
+#include "MenuOP.h"
+#include "myutils.h"
+#define BUTTON_LOGIC BUTTON_ONE_IS_UP
+#if BOARD==edu_ciaa_nxp
+	#define BUTTON0 TEC1
+	#define BUTTON1 TEC2
+	#define BUTTON2 TEC3
+	#define BUTTON3 TEC4
+#else
+	#error You must select a valid board!
+#endif  
 typedef enum {OSD,MENU,DIRECT,TIMER,AUTO} menuState;
 menuState estado;
 const char humChar[8] = { 
@@ -12,21 +23,35 @@ const char humChar[8] = {
    0b01110,
    0b00000
 };
-#define BUTTON_LOGIC BUTTON_ONE_IS_UP
-#if BOARD==edu_ciaa_nxp
-	#define BUTTON0 TEC1
-	#define BUTTON1 TEC2
-	#define BUTTON2 TEC3
-	#define BUTTON3 TEC4
-#else
-	#error You must select a valid board!
-#endif
 uint16_t SoilSensor;
 float moist;
 char * medida;
 uint32_t osdint = 0;
 uint32_t menuInt = 0;
 uint32_t menuRefreshInt = 1;
+button_t boton0;
+button_t boton1;
+button_t boton2;
+button_t boton3;
+void changeStateMenu(int mInt){
+	switch(mInt){
+		case 0:
+			estado = DIRECT;
+		break;
+		case 1:
+			//estado = TIMER;
+			estado = OSD;
+		break;
+		case 2:
+			//estado = AUTO;
+			estado = OSD;
+		break;
+		default:
+			estado = OSD;
+	}
+}
+
+
 int main (void){
 	boardConfig();
 	estado=OSD;
@@ -38,10 +63,6 @@ int main (void){
     delay_t refreshButtonEvents;
     delayInit( &refreshButton, 20 );
     delayInit( &refreshButtonEvents, 10 );
-    button_t boton0;
-    button_t boton1;
-    button_t boton2;
-    button_t boton3;
 	buttonInit( &boton0,                  // Button structure (object)
                BUTTON0, BUTTON_LOGIC,       // Pin and electrical connection
                50,                          // Button scan time [ms]
@@ -53,7 +74,18 @@ int main (void){
                0,                           // releasedCallback
                0                            // holdPressedCallback
     );
-	buttonInit( &boton1,                  // Button structure (object)
+       buttonInit( &boton0,                  // Button structure (object)
+               BUTTON0, BUTTON_LOGIC,       // Pin and electrical connection
+               50,                          // Button scan time [ms]
+               TRUE,                        // checkPressedEvent
+               FALSE,                       // checkReleasedEvent
+               TRUE,                        // checkHoldPressedEvent
+               5000,                        // holdPressedTime [ms]
+               0,                           // pressedCallback
+               0,                           // releasedCallback
+               0                            // holdPressedCallback
+             );
+   buttonInit( &boton1,                  // Button structure (object)
                BUTTON1, BUTTON_LOGIC,       // Pin and electrical connection
                50,                          // Button scan time [ms]
                TRUE,                        // checkPressedEvent
@@ -63,29 +95,31 @@ int main (void){
                0,                           // pressedCallback
                0,                           // releasedCallback
                0                            // holdPressedCallback
-    );
-	buttonInit( &boton2,                  // Button structure (object)
-               BUTTON2 BUTTON_LOGIC,       // Pin and electrical connection
+             );
+
+   buttonInit( &boton2,                  // Button structure (object)
+               BUTTON2, BUTTON_LOGIC,       // Pin and electrical connection
                50,                          // Button scan time [ms]
                TRUE,                        // checkPressedEvent
-               FALSE,                       // checkReleasedEvent
+               TRUE,                        // checkReleasedEvent
                TRUE,                        // checkHoldPressedEvent
-               5000,                        // holdPressedTime [ms]
+               2000,                        // holdPressedTime [ms]
                0,                           // pressedCallback
                0,                           // releasedCallback
                0                            // holdPressedCallback
-    );
-	buttonInit( &boton3,                  // Button structure (object)
+             );
+
+   buttonInit( &boton3,                  // Button structure (object)
                BUTTON3, BUTTON_LOGIC,       // Pin and electrical connection
                50,                          // Button scan time [ms]
                TRUE,                        // checkPressedEvent
-               FALSE,                       // checkReleasedEvent
+               TRUE,                        // checkReleasedEvent
                TRUE,                        // checkHoldPressedEvent
-               5000,                        // holdPressedTime [ms]
+               2000,                        // holdPressedTime [ms]
                0,                           // pressedCallback
                0,                           // releasedCallback
                0                            // holdPressedCallback
-    );  
+             ); 
 	while(TRUE){
 		SoilSensor = adcRead( CH1 );
 		moist = SoilSensor / 10.23;
@@ -176,22 +210,5 @@ int main (void){
 			case AUTO:
 			break;
 		}
-	}
-}
-void changeStateMenu(int mInt){
-	switch(mInt){
-		case 0:
-			estado = DIRECT;
-		break;
-		case 1:
-			//estado = TIMER;
-			estado = OSD;
-		break;
-		case 2:
-			//estado = AUTO;
-			estado = OSD;
-		break;
-		default:
-			estado = OSD;
 	}
 }
