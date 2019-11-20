@@ -1,6 +1,6 @@
 #include "sapi.h" 
 #include "ClockOSD.h" 
-enum menuState {OSD,MENU,DIRECT,TIMER,AUTO};
+typedef enum {OSD,MENU,DIRECT,TIMER,AUTO} menuState;
 menuState estado;
 const char humChar[8] = { 
    0b00100,
