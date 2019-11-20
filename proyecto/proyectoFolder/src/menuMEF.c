@@ -25,7 +25,7 @@ const char humChar[8] = {
 };
 uint16_t SoilSensor;
 float moist;
-char * medida;
+char medida[10];
 uint32_t osdint = 0;
 uint32_t menuInt = 0;
 uint32_t menuRefreshInt = 1;
@@ -121,10 +121,12 @@ int main (void){
                0                            // holdPressedCallback
              ); 
 	while(TRUE){
-		SoilSensor = adcRead( CH1 );
+		SoilSensor = adcRead( ADC_CH0 );
 		moist = SoilSensor / 10.23;
 		moist = 100 - moist;
-		myftoa(moist,medida,0);
+		//uint64ToString((uint64_t)SoilSensor,medida,10);
+		floatToString(moist,medida,2);
+		//myftoa(moist,medida,0);
 		if( delayRead(&refreshButton) ) {
          buttonFsmUpdate( &boton0 );
          buttonFsmUpdate( &boton1 );
@@ -133,7 +135,7 @@ int main (void){
         }
 		switch(estado){
 			case OSD:
-				lcdClear(); 
+				//lcdClear(); 
 				mostrarOSD(medida);
 				if( delayRead(&refreshButtonEvents) ) {
 					if((buttonEventGet( &boton1 ) == BUTTON_PRESSED)||(buttonEventGet( &boton2 ) == BUTTON_PRESSED)){
@@ -146,15 +148,15 @@ int main (void){
 							osdint = 1;
 						}else osdint = 0;
 					}
-					if (osdint==0){
-						showAuto();
-					}else{
-						showTimer();
-					}
 					if (buttonEventGet( &boton3 ) == BUTTON_PRESSED){
 						buttonEventHandled( &boton3 );
 						estado = MENU;
 					}
+				}
+				if (osdint==0){
+					showAuto();
+				}else{
+					showTimer();
 				}
 				delay(40);
 			break;
@@ -211,4 +213,5 @@ int main (void){
 			break;
 		}
 	}
+	return 0;
 }

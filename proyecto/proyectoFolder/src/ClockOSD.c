@@ -4,7 +4,7 @@ void mostrarOSD(char * strMoisture){
 	lcdData(0);
 	lcdSendStringRaw( "HUM: " );
 	lcdSendStringRaw( strMoisture );
-	lcdSendStringRaw( "%" );
+	lcdSendStringRaw( "%       " );
 }
 void showAuto(void){
 	lcdGoToXY( 0, 1 );
