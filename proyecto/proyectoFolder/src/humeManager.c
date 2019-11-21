@@ -21,3 +21,6 @@ void decrementHum(void){
 		humsetPercentage=humsetPercentage-1;
 	}
 }
+uint16_t getHumPercentage(void){
+	return humPercentage;
+}
