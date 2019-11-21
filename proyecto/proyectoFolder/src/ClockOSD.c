@@ -12,7 +12,7 @@ void showAuto(void){
 	lcdGoToXY( 0, 1 );
 	uint64ToString((uint64_t) getHumPercentage(),stringHume,10);
 	lcdSendStringRaw( "%HU: " );
-	lcdSendStringRaw( "00:00" );
+	lcdSendStringRaw( stringHume );
 }
 void showTimer(void){
 	lcdGoToXY( 0, 1 );
