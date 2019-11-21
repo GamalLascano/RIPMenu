@@ -2,6 +2,7 @@
 #include "ClockOSD.h" 
 #include "MenuOP.h"
 #include "myutils.h"
+#include "humeManager.h"
 #define BUTTON_LOGIC BUTTON_ONE_IS_UP
 #if BOARD==edu_ciaa_nxp
 	#define BUTTON0 TEC1
@@ -11,7 +12,7 @@
 #else
 	#error You must select a valid board!
 #endif  
-typedef enum {OSD,MENU,DIRECT,TIMER,AUTO} menuState;
+typedef enum {OSD,MENU,DIRECT,TIMER,HUME} menuState;
 menuState estado;
 const char humChar[8] = { 
    0b00100,
@@ -43,8 +44,7 @@ void changeStateMenu(int mInt){
 			estado = OSD;
 		break;
 		case 2:
-			//estado = AUTO;
-			estado = OSD;
+			estado = HUME;
 		break;
 		default:
 			estado = OSD;
@@ -207,7 +207,31 @@ int main (void){
 			break;
 			case TIMER:
 			break;
-			case AUTO:
+			case HUME:
+				if(menuRefreshInt==1){
+					lcdClear();
+					lcdGoToXY( 0, 0 );
+					lcdSendStringRaw( "Insertar %HUM" );
+					menuHum(menuRefreshInt);
+					menuRefreshInt=0;
+				}
+				if (delayRead(&refreshButtonEvents)){
+					if (buttonEventGet( &boton0 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton0 );
+						estado = OSD;
+						menuRefreshInt=1;
+					}
+					if (buttonEventGet( &boton1 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton0 );
+						decrementHum();
+						menuRefreshInt=1;
+					}
+					if (buttonEventGet( &boton2 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton0 );
+						incrementHum();
+						menuRefreshInt=1;
+					}
+				}
 			break;
 		}
 	}

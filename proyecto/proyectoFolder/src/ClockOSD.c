@@ -8,11 +8,11 @@ void mostrarOSD(char * strMoisture){
 }
 void showAuto(void){
 	lcdGoToXY( 0, 1 );
-	lcdSendStringRaw( "AU: " );
+	lcdSendStringRaw( "%HU: " );
 	lcdSendStringRaw( "00:00" );
 }
 void showTimer(void){
 	lcdGoToXY( 0, 1 );
-	lcdSendStringRaw( "TM: " );
+	lcdSendStringRaw( "TMR: " );
 	lcdSendStringRaw( "00:00" );
 }
