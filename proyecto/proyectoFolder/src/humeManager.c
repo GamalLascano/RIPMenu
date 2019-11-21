@@ -1,4 +1,5 @@
 #include "sapi.h"
+#include "menuMEF.h"
 uint16_t humPercentage = 100;
 uint16_t humsetPercentage = 0;
 char stringMenu[10];
@@ -23,4 +24,13 @@ void decrementHum(void){
 }
 uint16_t getHumPercentage(void){
 	return humPercentage;
+}
+void setPercentage(void){
+	lcdClear();
+	humPercentage=humsetPercentage;
+	humsetPercentage=0;
+	lcdGoToXY(0,0);
+	lcdSendStringRaw( "SUCESO" );
+	delay(2000);
+	changeStateMenu(3);
 }

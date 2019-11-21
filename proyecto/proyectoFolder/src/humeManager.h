@@ -4,4 +4,5 @@
 	void incrementHum(void);
 	void decrementHum(void);
 	uint16_t getHumPercentage(void);
+	void setPercentage(void);
 #endif

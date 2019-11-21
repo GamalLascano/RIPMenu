@@ -46,6 +46,9 @@ void changeStateMenu(int mInt){
 		case 2:
 			estado = HUME;
 		break;
+		case 3:
+			estado = OSD;
+		break;
 		default:
 			estado = OSD;
 	}
@@ -222,13 +225,18 @@ int main (void){
 						menuRefreshInt=1;
 					}
 					if (buttonEventGet( &boton1 ) == BUTTON_PRESSED){
-						buttonEventHandled( &boton0 );
+						buttonEventHandled( &boton1 );
 						decrementHum();
 						menuRefreshInt=1;
 					}
 					if (buttonEventGet( &boton2 ) == BUTTON_PRESSED){
-						buttonEventHandled( &boton0 );
+						buttonEventHandled( &boton2 );
 						incrementHum();
+						menuRefreshInt=1;
+					}
+				    if (buttonEventGet( &boton3 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton3 );
+						setPercentage();
 						menuRefreshInt=1;
 					}
 				}
