@@ -123,7 +123,7 @@ int main (void){
                TRUE,                        // checkPressedEvent
                TRUE,                        // checkReleasedEvent
                TRUE,                        // checkHoldPressedEvent
-               2000,                        // holdPressedTime [ms]
+               1000,                        // holdPressedTime [ms]
                0,                           // pressedCallback
                0,                           // releasedCallback
                0                            // holdPressedCallback
@@ -202,16 +202,24 @@ int main (void){
 				if(menuRefreshInt==1){
 					lcdClear();
 					lcdGoToXY( 0, 0 );
-					lcdSendStringRaw( "Entraste aca" );
+					lcdSendStringRaw( "Presiona Confirmar" );
 					lcdGoToXY( 0, 1 );
-					lcdSendStringRaw( "de vuelta" );
+					lcdSendStringRaw( "Para regar" );
 					menuRefreshInt=0;
 				}
 				if (delayRead(&refreshButtonEvents)){
 					if (buttonEventGet( &boton0 ) == BUTTON_PRESSED){
-						buttonEventHandled( &boton0 );
+						buttonEventHandled( &boton3 );
 						estado = OSD;
 						menuRefreshInt=1;
+					}
+					if (buttonEventGet( &boton3 ) == BUTTON_HOLD_PRESED){
+						buttonEventHandled( &boton3 );
+						servoWrite( SERVO4, 180 );
+					}
+					if (buttonEventGet( &boton3 ) == BUTTON_RELEASED){
+						buttonEventHandled( &boton3 );
+						servoWrite( SERVO4, 0 );
 					}
 				}
 			break;
