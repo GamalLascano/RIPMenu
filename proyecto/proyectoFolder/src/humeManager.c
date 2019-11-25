@@ -36,7 +36,7 @@ void setPercentage(void){
 	changeStateMenu(3);
 }
 void checkHumedad(uint16_t Sensor){
-	if(Sensor<humPercentage)&&(getCDState()==0){
+	if ((Sensor<humPercentage)&&(getCDState()==0)){
 		servoWrite( SERVO4, 180 );
 		lcdClear();
 		lcdGoToXY(0,0);
