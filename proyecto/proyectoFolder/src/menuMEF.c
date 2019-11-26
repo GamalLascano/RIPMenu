@@ -3,6 +3,7 @@
 #include "MenuOP.h"
 #include "myutils.h"
 #include "humeManager.h"
+#include "autoManager.h"
 #include "rtcManager.h"
 #define BUTTON_LOGIC BUTTON_ONE_IS_UP
 #if BOARD==edu_ciaa_nxp
@@ -224,6 +225,61 @@ int main (void){
 				}
 			break;
 			case TIMER:
+				if(menuRefreshInt==1){
+					lcdClear();
+					lcdGoToXY( 0, 0 );
+					if (getHourOrMin()==0){
+						lcdSendStringRaw( "Insertar Hora" );
+					}else{
+						if (getHourOrMin()==1){
+							lcdSendStringRaw( "Insertar Minutos" );
+						}
+					}
+					menuAuto(menuRefreshInt);
+					menuRefreshInt=0;
+				}
+				if (delayRead(&refreshButtonEvents)){
+					if (buttonEventGet( &boton0 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton0 );
+						if(getHourOrMin()==0){
+							estado = OSD;
+						}
+						menuRefreshInt=1;
+					}
+					if (buttonEventGet( &boton1 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton1 );
+						if(getHourOrMin()==0){
+							decrementAutoHour();
+						}else{
+							if(getHourOrMin()==1){
+								decrementAutoMin();
+							}
+						}
+						menuRefreshInt=1;
+					}
+					if (buttonEventGet( &boton2 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton2 );
+						if(getHourOrMin()==0){
+							incrementAutoHour();
+						}else{
+							if(getHourOrMin()==1){
+								incrementAutoMin();
+							}
+						}
+						menuRefreshInt=1;
+					}
+				    if (buttonEventGet( &boton3 ) == BUTTON_PRESSED){
+						buttonEventHandled( &boton3 );
+						if(getHourOrMin()==0){
+							setAutoHourPercentage();
+						}else{
+							if(getHourOrMin()==1){
+								setAutoMinPercentage();
+							}
+						}
+						menuRefreshInt=1;
+					}
+				}
 			break;
 			case HUME:
 				if(menuRefreshInt==1){

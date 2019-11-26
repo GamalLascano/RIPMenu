@@ -1,5 +1,6 @@
 #include "sapi.h" 
 #include "humeManager.h"
+#include "autoManager.h"
 char stringHume[10];
 void mostrarOSD(char * strMoisture){
 	lcdGoToXY( 0, 0 ); 
@@ -18,5 +19,9 @@ void showAuto(void){
 void showTimer(void){
 	lcdGoToXY( 0, 1 );
 	lcdSendStringRaw( "TMR: " );
-	lcdSendStringRaw( "00:00" );
+	uint64ToString((uint64_t) getHour(),stringHume,10);
+	lcdSendStringRaw( stringHume );
+	lcdSendStringRaw( ":" );
+	uint64ToString((uint64_t) getMin(),stringHume,10);
+	lcdSendStringRaw( stringHume );
 }
