@@ -83,17 +83,6 @@ int main (void){
                0,                           // releasedCallback
                0                            // holdPressedCallback
     );
-       buttonInit( &boton0,                  // Button structure (object)
-               BUTTON0, BUTTON_LOGIC,       // Pin and electrical connection
-               50,                          // Button scan time [ms]
-               TRUE,                        // checkPressedEvent
-               FALSE,                       // checkReleasedEvent
-               TRUE,                        // checkHoldPressedEvent
-               5000,                        // holdPressedTime [ms]
-               0,                           // pressedCallback
-               0,                           // releasedCallback
-               0                            // holdPressedCallback
-             );
    buttonInit( &boton1,                  // Button structure (object)
                BUTTON1, BUTTON_LOGIC,       // Pin and electrical connection
                50,                          // Button scan time [ms]

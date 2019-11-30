@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "sapi.h": "c",
+        "sapi_datatypes.h": "c"
+    }
+}
