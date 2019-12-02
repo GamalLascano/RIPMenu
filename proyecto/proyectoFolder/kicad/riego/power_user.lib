@@ -1,0 +1,48 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# AlimentacionEDUCIAA
+#
+DEF AlimentacionEDUCIAA U 0 20 Y Y 1 F N
+F0 "U" -200 250 50 H V L CNN
+F1 "AlimentacionEDUCIAA" -200 175 50 H V L CNN
+F2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" -700 400 50 H I L CIN
+F3 "" 0 0 50 V I C CIN
+$FPLIST
+ SOT*223*TabPin2*
+$ENDFPLIST
+DRAW
+C 25 -125 50 0 1 0 N
+C 25 0 50 0 1 0 N
+S -75 100 125 -225 0 1 0 f
+P 2 0 1 0 95 -170 95 -140 N
+P 2 0 1 0 95 40 95 10 N
+P 2 0 1 0 110 25 80 25 N
+X ~ 1 225 0 100 L 50 50 1 1 P
+X ~ 2 225 -125 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# AlimentacionExterna
+#
+DEF AlimentacionExterna U 0 20 Y Y 1 F N
+F0 "U" -200 250 50 H V L CNN
+F1 "AlimentacionExterna" -200 175 50 H V L CNN
+F2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" -700 400 50 H I L CIN
+F3 "" 0 0 50 V I C CIN
+$FPLIST
+ SOT*223*TabPin2*
+$ENDFPLIST
+DRAW
+C 25 -125 50 0 1 0 N
+C 25 0 50 0 1 0 N
+S -75 100 125 -225 0 1 0 f
+P 2 0 1 0 95 -170 95 -140 N
+P 2 0 1 0 95 40 95 10 N
+P 2 0 1 0 110 25 80 25 N
+X ~ 1 225 0 100 L 50 50 1 1 P
+X ~ 2 225 -125 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+#End Library

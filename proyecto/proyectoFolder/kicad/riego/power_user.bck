@@ -1,0 +1,15 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP Alimentacion
+D 200mA 2-Terminal Programmable Current Source, SOT-223
+K current source
+F https://www.analog.com/media/en/technical-documentation/data-sheets/3092fc.pdf
+$ENDCMP
+#
+$CMP AlimentacionEDUCIAA
+D 200mA 2-Terminal Programmable Current Source, SOT-223
+K current source
+F https://www.analog.com/media/en/technical-documentation/data-sheets/3092fc.pdf
+$ENDCMP
+#
+#End Doc Library

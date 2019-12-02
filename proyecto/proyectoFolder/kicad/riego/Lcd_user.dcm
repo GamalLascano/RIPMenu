@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP HD44780_1602A
+D LCD 16x2 Alphanumeric gray backlight, 3 or 5V VDD
+K display LCD dot-matrix
+F http://www.raystar-optronics.com/down.php?ProID=18
+$ENDCMP
+#
+#End Doc Library
