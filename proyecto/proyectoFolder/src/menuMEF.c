@@ -123,6 +123,10 @@ int main (void){
                0,                           // releasedCallback
                0                            // holdPressedCallback
              ); 
+	bool_t valor = 0;
+	valor = servoConfig( 0, SERVO_ENABLE );
+	valor = servoConfig( SERVO4, SERVO_ENABLE_OUTPUT );
+	valor = servoWrite( SERVO4, 180 );
 	while(TRUE){
 		SoilSensor = adcRead( ADC_CH0 );
 		moist = SoilSensor / 10.23;
@@ -195,18 +199,27 @@ int main (void){
 				if(menuRefreshInt==1){
 					lcdClear();
 					lcdGoToXY( 0, 0 );
-					lcdSendStringRaw( "Entraste aca" );
+					lcdSendStringRaw( "Presiona aca" );
 					lcdGoToXY( 0, 1 );
-					lcdSendStringRaw( "de vuelta" );
+					lcdSendStringRaw( "para regar" );
 					menuRefreshInt=0;
 				}
 				if (delayRead(&refreshButtonEvents)){
 					if (buttonEventGet( &boton0 ) == BUTTON_PRESSED){
 						buttonEventHandled( &boton0 );
+						buttonEventHandled( &boton3 ); 
 						estado = OSD;
 						menuRefreshInt=1;
 					}
 				}
+				if (buttonEventGet( &boton3 ) == BUTTON_PRESSED){ 
+						buttonEventHandled( &boton3 ); 
+						servoWrite( SERVO4, 180 ); 
+					} 
+				if (buttonEventGet( &boton2 ) == BUTTON_RELEASED){ 
+						buttonEventHandled( &boton2 ); 
+						servoWrite( SERVO4, 0 ); 
+					} 
 			break;
 			case TIMER:
 			break;

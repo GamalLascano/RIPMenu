@@ -97,7 +97,7 @@ static const uint8_t servoMap[ SERVO_TOTALNUMBER ] = {
       T_COL0,  // SERVO1
       T_FIL2,  // SERVO2
       T_FIL3,  // SERVO3
-      GPIO8,   // SERVO4
+      GPIO0,   // SERVO4
       LCD1,    // SERVO5
       LCD2,    // SERVO6
       LCD3,    // SERVO7

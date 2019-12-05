@@ -40,7 +40,7 @@
 
 /*==================[macros and definitions]=================================*/
 
-#define SERVO_N   SERVO0
+#define SERVO_N   SERVO4
 /*
    SERVO0 <---> T_FIL1 de EDU-CIAA-NXP
    SERVO1 <---> T_COL0 de EDU-CIAA-NXP
@@ -108,6 +108,7 @@ int main(void)
 
    // ------------- REPETIR POR SIEMPRE -------------
    while(1) {
+      gpioWrite( LEDB, 0 );
       servoWrite( SERVO_N, 0 );
       delay(500);
 
@@ -115,6 +116,8 @@ int main(void)
       delay(500);
 
       servoWrite( SERVO_N, 180 );
+      
+      gpioWrite( LEDB, 1 );
       delay(500);
    }
 
