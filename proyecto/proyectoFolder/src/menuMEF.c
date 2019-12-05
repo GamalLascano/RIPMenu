@@ -3,6 +3,7 @@
 #include "MenuOP.h"
 #include "myutils.h"
 #include "humeManager.h"
+#include "rtcManager.h" 
 #define BUTTON_LOGIC BUTTON_ONE_IS_UP
 #if BOARD==edu_ciaa_nxp
 	#define BUTTON0 TEC1
@@ -66,6 +67,8 @@ int main (void){
     delay_t refreshButtonEvents;
     delayInit( &refreshButton, 20 );
     delayInit( &refreshButtonEvents, 10 );
+	rtcInit(); 
+    configureRTC(); 
 	buttonInit( &boton0,                  // Button structure (object)
                BUTTON0, BUTTON_LOGIC,       // Pin and electrical connection
                50,                          // Button scan time [ms]
@@ -138,6 +141,8 @@ int main (void){
          buttonFsmUpdate( &boton2 );
          buttonFsmUpdate( &boton3 );
         }
+		checkHumedad((uint16_t)moist); 
+        manageRTC(); 
 		switch(estado){
 			case OSD:
 				//lcdClear(); 

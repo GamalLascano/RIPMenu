@@ -1,6 +1,7 @@
 #include "sapi.h"
 #include "menuMEF.h"
-uint16_t humPercentage = 100;
+#include "rtcManager.h" 
+uint16_t humPercentage = 0; 
 uint16_t humsetPercentage = 0;
 char stringMenu[10];
 void menuHum(uint16_t refresh){
@@ -33,4 +34,14 @@ void setPercentage(void){
 	lcdSendStringRaw( "SUCESO" );
 	delay(2000);
 	changeStateMenu(3);
+}
+void checkHumedad(uint16_t Sensor){ 
+	if((Sensor<humPercentage)&&(getCDState()==0)){ 
+		servoWrite( SERVO4, 180 ); 
+		lcdClear(); 
+		lcdGoToXY(0,0); 
+		lcdSendStringRaw( "REGANDO" ); 
+		delay(500); 
+		activateCooldownTimer(); 
+	} 
 }
