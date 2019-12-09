@@ -1,9 +1,10 @@
 #include "sapi.h"
+#include "autoManager.h"
 int cooldownTimer=0; 
 const int cdSetTime=300; 
 bool_t activatedCD=0; 
 rtc_t tiempoActual; 
-rtc_t tiempoPasado; 
+delay_t timeDelay;
 void configureRTC(void){ 
 	tiempoActual.year= 2019; 
 	tiempoActual.month=11; 
@@ -12,13 +13,11 @@ void configureRTC(void){
 	tiempoActual.hour=10; 
 	tiempoActual.min=55; 
 	tiempoActual.sec=0; 
-	rtcWrite(&tiempoActual); 
-	tiempoPasado=tiempoActual; 
+    delayConfig( &timeDelay, 1000 );
 } 
-void manageRTC(void){ 
-	rtcRead(&tiempoActual); 
-	if((tiempoActual.sec>tiempoPasado.sec)||(tiempoActual.min>tiempoPasado.min)||(tiempoActual.hour>tiempoPasado.hour)||(tiempoActual.month>tiempoPasado.month)||(tiempoActual.year>tiempoPasado.year)){ 
-		tiempoPasado=tiempoActual; 
+bool_t manageRTC(void){ 
+	if( delayRead(&timeDelay) ){
+        incrementTime();
 		if(activatedCD==1){ 
 			cooldownTimer++; 
 			if(cooldownTimer==cdSetTime){ 
@@ -26,7 +25,24 @@ void manageRTC(void){
 				activatedCD=0; 
 			} 
 		} 
-	} 
+		if (refreshCounter()==1){
+			return 1;
+		}else return 0;
+    } return 0;
+}
+void incrementTime(void){
+	tiempoActual.sec++;
+	if (tiempoActual.sec>=60){
+		tiempoActual.sec=0;
+		tiempoActual.min++;
+		if (tiempoActual.min>=60){
+			tiempoActual.min=0;
+			tiempoActual.hour++;
+			if(tiempoActual.hour>=24){
+				tiempoActual.hour=0;
+			}
+		}
+	}
 }
 rtc_t getTiempo(void){
     return tiempoActual;

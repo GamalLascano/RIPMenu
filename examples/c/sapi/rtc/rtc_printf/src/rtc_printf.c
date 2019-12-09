@@ -29,18 +29,21 @@ int main(void)
    rtcInit(); // Inicializar RTC
  
    rtcWrite( &rtc ); // Establecer fecha y hora
-   
+   lcdInit( 16, 2, 5, 8 );
+	lcdCursorSet( LCD_CURSOR_OFF );
+   char stringHume[10];
    /* ------------- REPETIR POR SIEMPRE ------------- */
    while(1) {
-
+      lcdGoToXY( 0, 0 ); 
       // Leer fecha y hora
       rtcRead( &rtc ); // en la variable de estructura rtc te queda la fecha/hora actual
-
+      uint64ToString((uint64_t) rtc.min,stringHume,10);
+   	lcdSendStringRaw( stringHume );
+   	lcdSendStringRaw( ":" );
+	   uint64ToString((uint64_t) rtc.sec,stringHume,10);
+	   lcdSendStringRaw( stringHume );
       // Envio por UART de forma humanamente legible
       // %02d == %d y ademas completa con 2 0 a izquierda
-      printf( "%02d/%02d/%04d, %02d:%02d:%02d\r\n", 
-              rtc.mday, rtc.month, rtc.year, 
-              rtc.hour, rtc.min, rtc.sec );
       // Note: printf() use sAPI UART_USB (Chip USART2 on EDU-CIAA-NXP) at 115200, 8N1 
 
       delay(1000);

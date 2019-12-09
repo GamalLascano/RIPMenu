@@ -4,6 +4,7 @@
 #include "myutils.h"
 #include "humeManager.h"
 #include "rtcManager.h" 
+#include "autoManager.h" 
 #define BUTTON_LOGIC BUTTON_ONE_IS_UP
 #if BOARD==edu_ciaa_nxp
 	#define BUTTON0 TEC1
@@ -67,20 +68,8 @@ int main (void){
     delay_t refreshButtonEvents;
     delayInit( &refreshButton, 20 );
     delayInit( &refreshButtonEvents, 10 );
-	rtcInit(); 
-    configureRTC(); 
-	buttonInit( &boton0,                  // Button structure (object)
-               BUTTON0, BUTTON_LOGIC,       // Pin and electrical connection
-               50,                          // Button scan time [ms]
-               TRUE,                        // checkPressedEvent
-               FALSE,                       // checkReleasedEvent
-               TRUE,                        // checkHoldPressedEvent
-               5000,                        // holdPressedTime [ms]
-               0,                           // pressedCallback
-               0,                           // releasedCallback
-               0                            // holdPressedCallback
-    );
-       buttonInit( &boton0,                  // Button structure (object)
+	configureRTC();
+    buttonInit( &boton0,                  // Button structure (object)
                BUTTON0, BUTTON_LOGIC,       // Pin and electrical connection
                50,                          // Button scan time [ms]
                TRUE,                        // checkPressedEvent
@@ -142,7 +131,9 @@ int main (void){
          buttonFsmUpdate( &boton3 );
         }
 		checkHumedad((uint16_t)moist); 
-        manageRTC(); 
+        if (manageRTC() == 1){
+			menuRefreshInt = 1;
+		}
 		switch(estado){
 			case OSD:
 				//lcdClear(); 
@@ -227,6 +218,61 @@ int main (void){
 					} 
 			break;
 			case TIMER:
+				if(menuRefreshInt==1){ 
+					lcdClear(); 
+					lcdGoToXY( 0, 0 ); 
+					if (getHourOrMin()==0){ 
+						lcdSendStringRaw( "Insertar Hora" ); 
+					}else{ 
+						if (getHourOrMin()==1){ 
+							lcdSendStringRaw( "Insertar Minutos" ); 
+						} 
+					} 
+					menuAuto(menuRefreshInt); 
+					menuRefreshInt=0; 
+				} 
+				if (delayRead(&refreshButtonEvents)){ 
+					if (buttonEventGet( &boton0 ) == BUTTON_PRESSED){ 
+						buttonEventHandled( &boton0 ); 
+						if(getHourOrMin()==0){ 
+							estado = OSD; 
+						} 
+						menuRefreshInt=1; 
+					} 
+					if (buttonEventGet( &boton1 ) == BUTTON_PRESSED){ 
+						buttonEventHandled( &boton1 ); 
+						if(getHourOrMin()==0){ 
+							decrementAutoHour(); 
+						}else{ 
+							if(getHourOrMin()==1){ 
+								decrementAutoMin(); 
+							} 
+						} 
+						menuRefreshInt=1; 
+					} 
+					if (buttonEventGet( &boton2 ) == BUTTON_PRESSED){ 
+						buttonEventHandled( &boton2 ); 
+						if(getHourOrMin()==0){ 
+							incrementAutoHour(); 
+						}else{ 
+							if(getHourOrMin()==1){ 
+								incrementAutoMin(); 
+							} 
+						} 
+						menuRefreshInt=1; 
+					} 
+				    if (buttonEventGet( &boton3 ) == BUTTON_PRESSED){ 
+						buttonEventHandled( &boton3 ); 
+						if(getHourOrMin()==0){ 
+							setAutoHourPercentage(); 
+						}else{ 
+							if(getHourOrMin()==1){ 
+								setAutoMinPercentage(); 
+							} 
+						} 
+						menuRefreshInt=1; 
+					} 
+				} 
 			break;
 			case HUME:
 				if(menuRefreshInt==1){
