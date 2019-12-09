@@ -42,8 +42,7 @@ void changeStateMenu(int mInt){
 			estado = DIRECT;
 		break;
 		case 1:
-			//estado = TIMER;
-			estado = OSD;
+			estado = TIMER;
 		break;
 		case 2:
 			estado = HUME;
@@ -118,7 +117,7 @@ int main (void){
 	bool_t valor = 0;
 	valor = servoConfig( 0, SERVO_ENABLE );
 	valor = servoConfig( SERVO4, SERVO_ENABLE_OUTPUT );
-	valor = servoWrite( SERVO4, 180 );
+	valor = servoWrite( SERVO4, 0 );
 	while(TRUE){
 		SoilSensor = adcRead( ADC_CH0 );
 		moist = SoilSensor / 10.23;

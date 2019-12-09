@@ -49,10 +49,7 @@ rtc_t getTiempo(void){
 } 
 bool_t getCDState(void){ 
 	return activatedCD; 
-} 
-void activateTimer(int tim){ 
- 
-} 
+}  
 void activateCooldownTimer(){ 
 	activatedCD=1; 
 }
