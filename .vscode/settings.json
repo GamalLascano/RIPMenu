@@ -2,6 +2,7 @@
     "files.associations": {
         "sapi.h": "c",
         "sapi_datatypes.h": "c",
-        "sapi_gpio.h": "c"
+        "sapi_gpio.h": "c",
+        "humemanager.h": "c"
     }
 }

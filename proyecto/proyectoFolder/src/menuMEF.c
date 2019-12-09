@@ -1,10 +1,9 @@
 #include "sapi.h" 
-#include "ClockOSD.h" 
-#include "MenuOP.h"
-#include "myutils.h"
-#include "humeManager.h"
-#include "rtcManager.h" 
-#include "autoManager.h" 
+#include "headers/ClockOSD.h" 
+#include "headers/MenuOP.h"
+#include "headers/humeManager.h"
+#include "headers/rtcManager.h" 
+#include "headers/autoManager.h" 
 #define BUTTON_LOGIC BUTTON_ONE_IS_UP
 #if BOARD==edu_ciaa_nxp
 	#define BUTTON0 TEC1

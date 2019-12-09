@@ -1,6 +1,6 @@
 #include "sapi.h"
-#include "menuMEF.h"
-#include "rtcManager.h" 
+#include "headers/menuMEF.h"
+#include "headers/rtcManager.h" 
 uint16_t humPercentage = 0; 
 uint16_t humsetPercentage = 0;
 char stringMenu[10];

@@ -1,7 +1,7 @@
 #include "sapi.h" 
-#include "humeManager.h"
-#include "rtcManager.h"
-#include "autoManager.h"
+#include "headers/humeManager.h"
+#include "headers/rtcManager.h"
+#include "headers/autoManager.h"
 char stringHume[10];
 void mostrarOSD(char * strMoisture){
 	lcdGoToXY( 0, 0 ); 
