@@ -31,7 +31,7 @@ void setPercentage(void){
 	humPercentage=humsetPercentage;
 	humsetPercentage=0;
 	lcdGoToXY(0,0);
-	lcdSendStringRaw( "SUCESO" );
+	lcdSendStringRaw( "     SUCESO     " );
 	delay(2000);
 	changeStateMenu(3);
 }
@@ -40,7 +40,7 @@ void checkHumedad(uint16_t Sensor){
 		servoWrite( SERVO4, 180 ); 
 		lcdClear(); 
 		lcdGoToXY(0,0); 
-		lcdSendStringRaw( "REGANDO" ); 
+		lcdSendStringRaw( "    REGANDO     " ); 
 		delay(5000); 
 		servoWrite( SERVO4, 0 );
 		activateCooldownTimer(); 

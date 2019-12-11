@@ -10,6 +10,13 @@ void mostrarOSD(char * strMoisture){
 	lcdSendStringRaw( strMoisture );
 	lcdSendStringRaw( "%       " );
 }
+void checkOneSpace(void){
+	int i;
+    for (i = 0; stringHume[i] != '\0'; ++i);
+	if (i<2){
+		lcdSendStringRaw( "0" );
+	}
+}
 void showAuto(void){
 	lcdGoToXY( 0, 1 );
 	uint64ToString((uint64_t) getHumPercentage(),stringHume,10);
@@ -25,13 +32,6 @@ void showAuto(void){
 	checkOneSpace();
 	lcdSendStringRaw( stringHume );
 	lcdSendStringRaw( "    " );
-}
-void checkOneSpace(void){
-	int i;
-    for (i = 0; stringHume[i] != '\0'; ++i);
-	if (i<2){
-		lcdSendStringRaw( "0" );
-	}
 }
 void showTimer(void){
 	lcdGoToXY( 0, 1 );

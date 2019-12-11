@@ -6,10 +6,10 @@ void showMenu(int menuInt){
 			lcdSendStringRaw( "  MODO DIRECTO" );
 		break;
 		case 1:
-			lcdSendStringRaw( "   MODO TIMER" );
+			lcdSendStringRaw( "   MODO TIMER  " );
 		break;
 		case 2:
-			lcdSendStringRaw( "MODO HUMEDAD  " );
+			lcdSendStringRaw( "  MODO HUMEDAD  " );
 		break;
 	}
 }

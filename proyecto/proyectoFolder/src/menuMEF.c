@@ -204,7 +204,7 @@ int main (void){
 				if(menuRefreshInt==1){
 					lcdClear();
 					lcdGoToXY( 0, 0 );
-					lcdSendStringRaw( "Presiona aca" );
+					lcdSendStringRaw( "Presiona TEC4" );
 					lcdGoToXY( 0, 1 );
 					lcdSendStringRaw( "para regar" );
 					menuRefreshInt=0;

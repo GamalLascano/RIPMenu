@@ -35,7 +35,7 @@ bool_t refreshCounter(void){
                     servoWrite( SERVO4, 180 ); 
 	            	lcdClear(); 
 	            	lcdGoToXY(0,0); 
-	            	lcdSendStringRaw( "REGANDO" ); 
+	            	lcdSendStringRaw( "    REGANDO     " ); 
 	            	delay(5000); 
                     actualHour = autoPercentage;
                     actualMin = autoMinPercentage;
@@ -121,7 +121,7 @@ void setAutoMinPercentage(void){
         actualSeg = 0;
     }
 	lcdGoToXY(0,0); 
-	lcdSendStringRaw( "SUCESO" ); 
+	lcdSendStringRaw( "     SUCESO     " ); 
 	delay(2000); 
 	changeStateMenu(3); 
 }
