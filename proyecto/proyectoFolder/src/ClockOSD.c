@@ -15,20 +15,37 @@ void showAuto(void){
 	uint64ToString((uint64_t) getHumPercentage(),stringHume,10);
 	lcdSendStringRaw( "%HU: " );
 	lcdSendStringRaw( stringHume );
-	lcdSendStringRaw( "                  " );
+	lcdSendStringRaw( " " );
+	lcdData(1);
+	uint64ToString((uint64_t) getTiempo().hour,stringHume,10);
+	checkOneSpace();
+	lcdSendStringRaw( stringHume );
+	lcdSendStringRaw( ":" );
+	uint64ToString((uint64_t) getTiempo().min,stringHume,10);
+	checkOneSpace();
+	lcdSendStringRaw( stringHume );
+	lcdSendStringRaw( "    " );
+}
+void checkOneSpace(void){
+	int i;
+    for (i = 0; stringHume[i] != '\0'; ++i);
+	if (i<2){
+		lcdSendStringRaw( "0" );
+	}
 }
 void showTimer(void){
 	lcdGoToXY( 0, 1 );
 	lcdSendStringRaw( "TMR: " );
-	uint64ToString((uint64_t) getTiempo().min,stringHume,10);
-	lcdSendStringRaw( stringHume );
-	lcdSendStringRaw( ":" );
-	uint64ToString((uint64_t) getTiempo().sec,stringHume,10);
-	lcdSendStringRaw( stringHume );
-	lcdSendStringRaw( " " );
-	uint64ToString((uint64_t) getHour(),stringHume,10); 
+	uint64ToString((uint64_t) getHour(),stringHume,10);
+	checkOneSpace();
 	lcdSendStringRaw( stringHume ); 
 	lcdSendStringRaw( ":" ); 
 	uint64ToString((uint64_t) getMin(),stringHume,10); 
-	lcdSendStringRaw( stringHume ); 
+	checkOneSpace();
+	lcdSendStringRaw( stringHume );
+	lcdSendStringRaw( ":" );  
+	uint64ToString((uint64_t) getSec(),stringHume,10);
+	checkOneSpace(); 
+	lcdSendStringRaw( stringHume );
+	lcdSendStringRaw( "        " ); 
 }

@@ -36,7 +36,7 @@ bool_t refreshCounter(void){
 	            	lcdClear(); 
 	            	lcdGoToXY(0,0); 
 	            	lcdSendStringRaw( "REGANDO" ); 
-	            	delay(500); 
+	            	delay(5000); 
                     actualHour = autoPercentage;
                     actualMin = autoMinPercentage;
                     actualSeg = 0;
@@ -63,10 +63,13 @@ uint16_t getHourOrMin(void){
 	return hourOrMin; 
 } 
 uint16_t getHour(){ 
-	return autoPercentage; 
+	return actualHour; 
 } 
 uint16_t getMin(){ 
-	return autoMinPercentage; 
+	return actualMin; 
+} 
+uint16_t getSec(){ 
+	return actualSeg; 
 } 
 void incrementAutoMin(void){ 
 	if(autoMinSetPercentage<60){ 
@@ -105,7 +108,12 @@ void setAutoMinPercentage(void){
 	hourOrMin=0; 
 	autoMinPercentage=autoMinSetPercentage; 
 	autoMinSetPercentage=0; 
-    if (autoMinPercentage == 0 && autoPercentage == 0) timerActivated = 0;
+    if (autoMinPercentage == 0 && autoPercentage == 0){
+		timerActivated = 0;
+		actualHour = 0;
+		actualMin = 0;
+		actualSeg = 0;
+	} 
     else {
         timerActivated = 1;
         actualHour = autoPercentage;

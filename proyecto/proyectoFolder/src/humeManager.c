@@ -41,7 +41,7 @@ void checkHumedad(uint16_t Sensor){
 		lcdClear(); 
 		lcdGoToXY(0,0); 
 		lcdSendStringRaw( "REGANDO" ); 
-		delay(500); 
+		delay(5000); 
 		servoWrite( SERVO4, 0 );
 		activateCooldownTimer(); 
 		changeStateMenu(3); 

@@ -5,6 +5,7 @@ uint16_t getHourOrMin(void);
 bool_t refreshCounter(void);
 uint16_t getHour(void); 
 uint16_t getMin(void); 
+uint16_t getSec();
 void incrementAutoMin(void); 
 void decrementAutoMin(void); 
 uint16_t getAutoMinPercentage(void); 

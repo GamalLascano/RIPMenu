@@ -25,6 +25,16 @@ const char humChar[8] = {
    0b01110,
    0b00000
 };
+const char clockChar[8] = { 
+   0b01110,
+   0b10001,
+   0b10101,
+   0b10101,
+   0b10111,
+   0b10001,
+   0b10001,
+   0b01110
+};
 uint16_t SoilSensor;
 float moist;
 char medida[10];
@@ -61,6 +71,7 @@ int main (void){
 	lcdInit( 16, 2, 5, 8 );
 	lcdCursorSet( LCD_CURSOR_OFF );
 	lcdCreateChar( 0, humChar );
+	lcdCreateChar(1, clockChar);
 	adcConfig( ADC_ENABLE );
 	delay_t refreshButton;
     delay_t refreshButtonEvents;

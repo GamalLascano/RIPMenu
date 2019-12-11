@@ -11,6 +11,6 @@
 void mostrarOSD(char * strMoisture);
 void showAuto(void);
 void showTimer(void);
-
+void checkOneSpace(void);
 
 #endif /* FIRMWARE_V3_MASTER_TEST_PRUEBA_SRC_CLOCKOSD_H_ */
