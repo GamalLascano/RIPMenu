@@ -132,6 +132,9 @@ int main (void){
 		SoilSensor = adcRead( ADC_CH0 );
 		moist = SoilSensor / 10.23;
 		moist = 100 - moist;
+		moist = moist * 100;
+		moist = moist / 64;
+		if (moist > 100) moist = 100;
 		floatToString(moist,medida,2);
 		if( delayRead(&refreshButton) ) {
          buttonFsmUpdate( &boton0 );
@@ -164,7 +167,7 @@ int main (void){
 					}
 				}
 				if (osdint==0){
-					showAuto();
+					showAuto(moist);
 				}else{
 					showTimer();
 				}

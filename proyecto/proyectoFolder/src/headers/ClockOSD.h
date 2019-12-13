@@ -9,7 +9,7 @@
 #define CLOCKOSD_H_
 
 void mostrarOSD(char * strMoisture);
-void showAuto(void);
+void showAuto(float moist);
 void showTimer(void);
 void checkOneSpace(void);
 
