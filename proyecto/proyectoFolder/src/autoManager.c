@@ -32,7 +32,7 @@ bool_t refreshCounter(void){
         if (actualSeg == 0) {
             if (actualMin == 0){
                 if (actualHour == 0){
-                    servoWrite( SERVO4, 180 ); 
+                    gpioWrite(GPIO0,1);
 	            	lcdClear(); 
 	            	lcdGoToXY(0,0); 
 	            	lcdSendStringRaw( "    REGANDO     " ); 
@@ -40,7 +40,7 @@ bool_t refreshCounter(void){
                     actualHour = autoPercentage;
                     actualMin = autoMinPercentage;
                     actualSeg = 0;
-                    servoWrite(SERVO4, 0);
+                    gpioWrite(GPIO0,0);
                     changeStateMenu(3); 
                     return 1;
                 }else {

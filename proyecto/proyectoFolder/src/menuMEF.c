@@ -124,10 +124,6 @@ int main (void){
                0,                           // releasedCallback
                0                            // holdPressedCallback
              ); 
-	bool_t valor = 0;
-	//valor = servoConfig( 0, SERVO_ENABLE );
-	//valor = servoConfig( SERVO4, SERVO_ENABLE_OUTPUT );
-	//valor = servoWrite( SERVO4, 0 );
 	gpioInit(GPIO0,GPIO_OUTPUT);
 	while(TRUE){
 		SoilSensor = adcRead( ADC_CH0 );

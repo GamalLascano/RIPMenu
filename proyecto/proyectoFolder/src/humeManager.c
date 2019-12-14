@@ -37,12 +37,12 @@ void setPercentage(void){
 }
 void checkHumedad(uint16_t Sensor){ 
 	if((Sensor<humPercentage)&&(getCDState()==0)){ 
-		servoWrite( SERVO4, 180 ); 
+		gpioWrite(GPIO0,1); 
 		lcdClear(); 
 		lcdGoToXY(0,0); 
 		lcdSendStringRaw( "    REGANDO     " ); 
 		delay(5000); 
-		servoWrite( SERVO4, 0 );
+		gpioWrite(GPIO0,0);
 		activateCooldownTimer(); 
 		changeStateMenu(3); 
 	} 
