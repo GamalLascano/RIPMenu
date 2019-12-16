@@ -2,7 +2,7 @@
 #include "headers/humeManager.h"
 #include "headers/rtcManager.h"
 #include "headers/autoManager.h"
-float moistMax = 0;
+//float moistMax = 0;
 char stringHume[10];
 void mostrarOSD(char * strMoisture){
 	lcdGoToXY( 0, 0 ); 
@@ -24,18 +24,18 @@ void showAuto(float moist){
 	lcdSendStringRaw( "%HU: " );
 	lcdSendStringRaw( stringHume );
 	lcdSendStringRaw( " " );
-	if (moist>moistMax) moistMax=moist;
-	floatToString(moistMax,stringHume,2);
+	//if (moist>moistMax) moistMax=moist;
+	//floatToString(moistMax,stringHume,2);
+	//lcdSendStringRaw( stringHume );
+	lcdData(1);
+	uint64ToString((uint64_t) getTiempo().hour,stringHume,10);
+	checkOneSpace();
 	lcdSendStringRaw( stringHume );
-	//lcdData(1);
-	//uint64ToString((uint64_t) getTiempo().hour,stringHume,10);
-	//checkOneSpace();
-	//lcdSendStringRaw( stringHume );
-	//lcdSendStringRaw( ":" );
-	//uint64ToString((uint64_t) getTiempo().min,stringHume,10);
-	//checkOneSpace();
-	//lcdSendStringRaw( stringHume );
-	//lcdSendStringRaw( "    " );
+	lcdSendStringRaw( ":" );
+	uint64ToString((uint64_t) getTiempo().min,stringHume,10);
+	checkOneSpace();
+	lcdSendStringRaw( stringHume );
+	lcdSendStringRaw( "    " );
 }
 void showTimer(void){
 	lcdGoToXY( 0, 1 );

@@ -119,7 +119,7 @@ int main (void){
                TRUE,                        // checkPressedEvent
                TRUE,                        // checkReleasedEvent
                TRUE,                        // checkHoldPressedEvent
-               2000,                        // holdPressedTime [ms]
+               500,                        // holdPressedTime [ms]
                0,                           // pressedCallback
                0,                           // releasedCallback
                0                            // holdPressedCallback
@@ -204,9 +204,9 @@ int main (void){
 				if(menuRefreshInt==1){
 					lcdClear();
 					lcdGoToXY( 0, 0 );
-					lcdSendStringRaw( "Presiona TEC4" );
+					lcdSendStringRaw( "PRESIONA TEC4" );
 					lcdGoToXY( 0, 1 );
-					lcdSendStringRaw( "para regar" );
+					lcdSendStringRaw( "PARA ACTIVAR" );
 					menuRefreshInt=0;
 				}
 				if (delayRead(&refreshButtonEvents)){
@@ -217,15 +217,13 @@ int main (void){
 						menuRefreshInt=1;
 					}
 				}
-				if (buttonEventGet( &boton3 ) == BUTTON_PRESSED){ 
+				if (buttonEventGet( &boton3 ) == BUTTON_HOLD_PRESED){ 
 						buttonEventHandled( &boton3 ); 
 						gpioWrite(GPIO0,1);
-						//servoWrite( SERVO4, 180 ); 
 					} 
-				if (buttonEventGet( &boton2 ) == BUTTON_RELEASED){ 
-						buttonEventHandled( &boton2 ); 
+				if (buttonEventGet( &boton3 ) == BUTTON_RELEASED){ 
+						buttonEventHandled( &boton3 ); 
 						gpioWrite(GPIO0,0);
-						//servoWrite( SERVO4, 0 ); 
 					} 
 			break;
 			case TIMER:
